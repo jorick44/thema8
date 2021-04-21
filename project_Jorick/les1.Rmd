@@ -1,0 +1,65 @@
+---
+title: "les 1"
+author: "Jorick Baron"
+date: "21/4/2021"
+output: pdf_document
+---
+
+```{r}
+library(deSolve)
+```
+
+
+1.0 Experiment
+Iedere groep krijgt een zak M&M’s en een schaal. We gaan vervolgens de schaal vullen volgens het volgende principe: voeg 10 stuks toe en haal vervolgens 10% eraf (toevoeging = +10 - 0.1 * nieuw volume) oftewel
+
+dY = 10 - 0.1 * (Y+10)
+
+De uitkomst ziet er als volgt uit (hier alleen eerste 6)
+
+      time | Volume
+      -------------
+        0  |    0.0000
+         1 |  9.0000
+         2 | 17.1000
+         3 | 24.3900
+         4 | 30.9510
+         5 | 36.8559
+Op een gegeven moment neemt de toename in volume af, doordat de correctie groter wordt (omdat het nieuwe volume groter wordt) maar de toevoeging zelf blijft 10. Uiteindelijk zal er evenveel gecorrigeerd worden (10) als er toegevoegd wordt (10). De toename is dan 0. Wij noemen dit een evenwicht status.
+
+Ga met dit experiment door totdat je een evenwicht status hebt gevonden.
+
+Beantwoord de volgende vragen:
+1. Welke parameters (constantes) zitten er in de vergelijking?
+
+2. Welke variabele uit de vergelijking veranderd steeds?
+
+3. Wat is de initiele waarde van de variabele uit vraag 2?
+
+4. Wat is het tijdsframe van dit experiment? (t = 0 tot t = ……. )
+
+5. Wanneer is het evenwichtsmoment?
+
+6. Uit welke variabele uit de vergelijking kunnen we dat aflezen?
+
+
+
+```{r}
+parameters <- c(addVolume = 42, pV = 0.24)
+volume <- function(t,y,parms){
+  with(as.list(c(parms)),{
+         dY <- addVolume - pV * (y+addVolume)
+         return(list(c(dY)))
+       }
+       )
+}
+
+state <- c(Volume = 0)
+times <- seq(0, 100,  by = 1)
+
+out  <- ode(times = times, y = state,   parms = parameters, func = volume, method = "euler")
+head(out)
+plot(out)
+```
+
+ bla
