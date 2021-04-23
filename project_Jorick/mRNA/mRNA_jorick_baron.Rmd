@@ -1,0 +1,68 @@
+---
+title: "mRNA"
+author: "Jorick Baron"
+date: "4/23/2021"
+output: 
+  pdf_document:
+      number_sections: yes
+linkcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introductie
+
+mRNA levels in a cell change dynamically in accordance with 3 models.
+
+a. system is at the steady state.
+b. number of mRNA is increasing over time.
+c. number of mRNA is decreasing over time. 
+
+## Goal.
+
+we will attempt to make these models using the deSolve package.
+
+## Theory.
+
+the change of mRNA can be modelled using this biological model based upon. [\cite{model}](https://arep.med.harvard.edu/pdf/Chen99.pdf).
+
+![biological model](biomodel_mRNA.png)
+
+when we turn this biological model into a mathematical equation we get:
+
+> dR/dt = -rR + m
+
+R is the number of transcripts.
+
+r is the rate of decay of existing transcripts.
+
+m is the number of new transcripts produced per second.
+
+#  Methods.
+## The software model.
+
+bla
+
+## Model configuration.
+bla
+
+Model | new transcripts | Decay ratio
+------|-----------------|-------------
+a.    | bla             | bla
+b.    | bla             | bla
+c.    | bla             | bla
+
+
+# Results.
+
+# Conclusion and discusion.
+
+# References.
+\begin{thebibliography}{9}
+
+\bibitem{model}
+TING CHEN, HONGYU L. HE, GEORGE M. CHURCH \textit{modeling gene expression with differential equations} 4, 1999, https://arep.med.harvard.edu/pdf/Chen99.pdf.
+
+\end{thebibliography}
