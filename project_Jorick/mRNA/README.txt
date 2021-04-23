@@ -8,7 +8,7 @@ mRNA assingment
 
 Description
 Instructions to run the simulation for the assingment. The mRNA_assingment.rmd contains the markdown file of the assingment.
-The file mRNA_jorick_baron.pdf contains the pdf view of the task.
+The file mRNA_assingment.pdf contains the pdf view of the task.
 
 
 Installation
