@@ -5,6 +5,11 @@ date: "23-4-2021"
 output: html_document
 ---
 
+```{r}
+library(deSolve)
+```
+
+
 model = 
 
 dR/dT = -rR + m
