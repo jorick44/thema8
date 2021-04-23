@@ -40,6 +40,8 @@ r is the rate of decay of existing transcripts.
 
 m is the number of new transcripts produced per second.
 
+mRNA or messenger RNA is used in cells to begin the translation to polypeptides. To achieve this the mRNA is transcribed from DNA. In our model this is the inflow of mRNA. After serving its purpose mRNA will decay,in our model this is our outflow of total mRNA.
+
 #  Methods.
 ## The software model.
 
@@ -74,8 +76,8 @@ out_down <- ode(times = times, y = state, parms = parameters_down, func = volume
 
 ## Model configuration.
 The following table has the values used in the model, 100 is used as the initial value, it represents 100% of starting value.
-New transcripts is the gain of transcripts, these values are example values.
-Decay ratio is the loss of total transcript 0.1 is a 10% loss, these values are example values.
+New transcripts is the gain of transcripts, these values are fictitious values.
+Decay ratio is the loss of total transcript 0.1 is a 10% loss, these values are fictitious values.
 
 Model | New Transcripts | Decay Ratio
 ------|-----------------|-------------
@@ -85,8 +87,22 @@ c.    | 9               | 0.1
 
 
 # Results.
+The model results in the following plot.
+```{r} 
+plot(out, out_up, out_down, col = c('red','green', 'blue'), lty = 1,
+     xlab = 'Timepoints', ylab = 'Number of mRNA Transcripts', main = 'Amount of mRNA transcripts over time',
+     ylim = c(55,145))
+legend(72, 147, legend = c('Steady state', 'Increasing', 'Decreasing'), col = c('red', 'green', 'blue'), lty = 1, lwd = 2)
+```
+
+The figure above displays that the decay and the increase/decrease will eventually even out.
 
 # Conclusion and discusion.
+## Discusion.
+The curves flattens out after a certain amount of time, this was an expected result. Since after a certain amount of time, the constant addition of transcripts and the fixed decay rate would become the same number.
+
+## General conclusion and perspective.
+The goal was to use deSolve to make models based upon the steady state and an increase/decrease of mRNA over time. The model we produced reached our goal aptly and is able to be used in further research, or to be updated in compliance with future research.
 
 # References.
 \begin{thebibliography}{9}
