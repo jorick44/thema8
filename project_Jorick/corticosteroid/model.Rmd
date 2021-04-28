@@ -1,0 +1,51 @@
+---
+title: "cortisteroid"
+author: "Jorick Baron"
+date: "4/28/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(deSolve)
+```
+
+
+# model
+
+
+```{r}
+# Parameters
+parameters <- c(ks_Rm = 2.90, # fmol/g liver/h
+                IC50_Rm = 26.2, # fmol/mg protein
+                kon = 0.00329, # L/nmol/h
+                kT = 0.63, # 1/h
+                kre = 0.57, # 1/h
+                Rf = 0.49,
+                kd_R = 0.0572, # 1/h
+                kd_Rm = 0.612,
+                ks_R = 3.22,
+                D = 53,41) # nmol/L
+
+# Initial state
+state <- c(Rmo = 4.74, # fmol/g liver
+           Ro = 267, # fmol/mg protein
+           DR = 0, # fmol/ mg protein
+           DRN = 0) # fmol/mg protein
+# Model
+mRNA <- function(t, y, parms){
+  with(as.list(c(parms)),{
+    dmRNAR <- ks_Rm * (1 - y[4]/(IC50_Rm + y[4])) - kd_Rm * y[1]
+    dR <- ks_R * y[1] + Rf * kre * y[4] - kon * D * y[2] - kd_R * y[2]
+    dDR <- kon * D * y[2] - kT * y[3]
+    dDRN <- kT * y[3] - kre * y[4] 
+    return(list(c(dmRNAR, dR, dDR, dDRN)))
+  })}
+# Timeframe
+times <- seq(0, 48, by = 1)
+# Run model
+out <- ode(y = state, times = times, parms = parameters, func = mRNA, method = "euler")
+# Plot
+plot(out)
+```
+
