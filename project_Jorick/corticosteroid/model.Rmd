@@ -10,9 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(deSolve)
 ```
 
-
 # model
-
 
 ```{r}
 # Parameters
@@ -33,7 +31,7 @@ state <- c(Rmo = 4.74, # fmol/g liver
            DR = 0, # fmol/ mg protein
            DRN = 0) # fmol/mg protein
 # Model
-mRNA <- function(t, y, parms){
+GR <- function(t, y, parms){
   with(as.list(c(parms)),{
     dmRNAR <- ks_Rm * (1 - y[4]/(IC50_Rm + y[4])) - kd_Rm * y[1]
     dR <- ks_R * y[1] + Rf * kre * y[4] - kon * D * y[2] - kd_R * y[2]
@@ -44,8 +42,10 @@ mRNA <- function(t, y, parms){
 # Timeframe
 times <- seq(0, 48, by = 1)
 # Run model
-out <- ode(y = state, times = times, parms = parameters, func = mRNA, method = "euler")
+out <- ode(y = state, times = times, parms = parameters, func = GR, method = "euler")
 # Plot
-plot(out)
+plot(out, main = c("Level of receptor mRNA", "Level of free receptors",
+                   "Densety of MPL-receptor complex", "Number of MPL-complexes\nin the nucleous"),
+     xlab = "time in hours",
+     ylab = c("fmol/g liver", "fmol/mg protein", "fmol/mg protein", "fmol/mg protein"))
 ```
-
