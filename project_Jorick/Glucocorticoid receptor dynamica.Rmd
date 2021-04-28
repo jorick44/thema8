@@ -1,0 +1,23 @@
+---
+title: "Glucocorticoid receptor dynamica"
+author: "Pascal Visser"
+date: "23-4-2021"
+output: html_document
+---
+
+# Doel
+
+Het implementeren van een model voor de expressie van glucocorticoid receptoren (GR), waarbij er remming (negatieve feedback) optreed door corticosteroiden.
+
+# Achtergrond
+
+Glucocorticosteroiden zijn de meest effectieve ontstekingsremmende medicijnen die beschikbaar zijn. Ze zijn sterk voor de behandeling tegen chronische ontstekings- en immuunziekten, waaronder astma. Echter, andere ontstekings ziekten als chronische obstructieve longziekte (COPD), interstitiële pulmonale fibrose en cystische fibrose, lijken grotendeels glucocorticoïde resistent te zijn. Ook is er een kleine groep patiënten die niet of nauwelijks reageert op hoge doses glucocorticoides. 
+
+Astma en COPD zijn allebei chronische ontsteking van de luchtwegen, met de activering en rekrutering van vele ontstekingscellen en georganiseerd door een complex netwerk. Echter, er zijn verschillen in de aard van de ontsteking en de ontstekingsgevolgen ervan. Dit zorgt er waarschijnlijk voor waarom Astma goed reageert op een behandeling met glucocorticosteroiden en COPD niet. Door nieuwe inzichten kan beter worden onderzocht waarom Glucocorticosteroiden op de ene ontstekingsziekte wel aanslaat en op de ander niet, en kan er wordt gekeken hoe de Glucocorticosteroiden resistentie overwonnen kan worden. 
+
+Door het observeren van ontsteking-repressie door Glucocorticosteroiden bij astma patiënten, zijn er grote inzichten gekomen in het begrijpen van het moleculaire mechanismes van Glucocorticosteroiden. Glucocorticosteroiden activeren veel ontstekingsremmende genen en onderdrukken de ontstekingsbevorderende genen, en heeft meerdere post-transcriptionele effecten. 
+
+Glucocorticosteroiden diffuseren door het celmembraan en binden aan de glucocorticoiden receptoren (GR) in het cytoplasma. Na  ligand-binding wordt GR geactiveerd en vrijgegeven uit chaperonne-eiwitten (heat shock eiwttien en andere) en wordt het snel getransloceerd naar de kern waar ze hun moleculaire effecten uitoefenen. GR vormen een homodimeer en binden aan het glucocorticoid response element (GRE) op de promotor regio van glucocorticoide responsieve genen. Deze interactie schakelt de gen transcriptie aan of uit van het desbetreffende gen.  
+
+# Model
+
