@@ -1,0 +1,7 @@
+# Concentratie vrije receptoren
+
+Na inname van het medicijn is te zien dat na 3 uren het niveau van het receptor mRNA drastisch naar beneden gaat. Doordat de toename van MPL-complexen toeneemt, onderdrukt deze de aanmaak van nieuw mRNA. Na +/- 10 uren herstelt het receptor mRNA niveau zich deels, doordat de dichtheid van de MPL-complexen afneemt. 
+
+Het niveau van de vrije receptoren in het cytosol daalt na inname direct en vlakt af richting de 0 na iets meer dan 20 uren. Doordat de aanwezigheid van het medicijn wordt de aanmaak van nieuwe receptoren geremd en daalt het niveau. Een deel van de MPL-complexen kunnen worden hergebruikt als vrije receptoren waardoor er niet direct een sterkte daling optreed.   
+
+
