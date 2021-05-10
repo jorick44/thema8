@@ -56,15 +56,13 @@ uit dit gedeelte is de concentratie van receptor (R) mRNA te achterhalen. Hierin
 
 ## Formule 2.
 
-![model voor formule 2](../images/biomodel_GR_R.png "model voor formule 2"){width="189"}
+![model voor formule 2](../images/biomodel_GR_R.png "model voor formule 2"){width="168"}
 
 Hier uit is te zien hoe de dichtheid van vrije receptoren in het cytosol berekend wordt. Hier staat:
 
 -   R = De dichtheid van vrije receptoren in fmol/mg eiwit.
 
 -   D = De concentratie van MPL in nmol/L.
-
--   DR = De concentratie van receptoren in een complex met MPL buiten de celkern in fmol/mg eiwit.
 
 -   DR(N) = De dichtheid van MPL-receptor complexen in de celkern gemeten in fmol/mg eiwit.
 
@@ -80,7 +78,7 @@ Hier uit is te zien hoe de dichtheid van vrije receptoren in het cytosol bereken
 
 ## Formule 3.
 
-![model voor formule 3](../images/biomodel_GR_DR.png "model voor formule 3")
+![model voor formule 3](../images/biomodel_GR_DR.png "model voor formule 3"){width="253"}
 
 met dit deel van het model is te zien hoe de dichtheid van MPL-receptor te achterhalen is. Hier staat:
 
@@ -90,15 +88,13 @@ met dit deel van het model is te zien hoe de dichtheid van MPL-receptor te achte
 
 -   D = De concentratie van MPL in nmol/L.
 
--   DR(N) = De dichtheid van MPL-receptor complexen in de celkern gemeten in fmol/mg eiwit.
-
 -   k~on~ = Een snelheidsconstante voor de vorming van MPL-receptor complexen in nmol/L/u.
 
 -   k~T~ = Een snelheidsconstante voor de verplaatsing van MPL-receptor complexen naar de celkern per uur.
 
 ## Formule 4.
 
-![model voor formule 4](../images/biomodel_GR_DRN.png "model voor formule 4"){width="215"}
+![model voor formule 4](../images/biomodel_GR_DRN.png "model voor formule 4"){width="157"}
 
 Uit dit model is de hoeveelheid MPL-receptor complex in de celkern te achterhalen. Notitie: in de afbeelding staat Rf maar deze komt niet voor in de formule omdat Rf en (1-Rf) tegen elkaar weg te strepen zijn en alleen de 1 overblijft. De waarden staan voor:
 
@@ -106,13 +102,37 @@ Uit dit model is de hoeveelheid MPL-receptor complex in de celkern te achterhale
 
 -   DR = De concentratie van receptoren in een complex met MPL buiten de celkern in fmol/mg eiwit.
 
--   R = De dichtheid van vrije receptoren in fmol/mg eiwit.
-
 -   k~T~ = Een snelheidsconstante voor de verplaatsing van MPL-receptor complexen naar de celkern per uur.
 
 -   Rf = Het deel van de MPL-receptor complexen die hergebruikt kunnen worden als vrije receptoren.
 
 -   k~re~ = Een snelheidsconstante voor het herstel van MPL-receptor complexen uit de celkern per uur.
+
+## Waarden.
+
+| Symbool | Waarde             |
+|---------|--------------------|
+| mRNA~R~ | 4.74(fmol/g lever) |
+| R       | 267(fmol/mg eiwit) |
+| DR      | 0(fmol/mg eiwit)   |
+| DR(N)   | 0(fmol/mg eiwit)   |
+
+: initiale waarden.
+
+| Symbool   | Waarde               |
+|-----------|----------------------|
+| k~s_Rm~   | 2.90(fmol/g lever/u) |
+| IC~50_Rm~ | 26.2(fmol/mg eiwit)  |
+| k~on~     | 0.00329(L/nmol/u)    |
+| k~T~      | 0.63(u^-1^)          |
+| k~re~     | 0.57(u^-1^)          |
+| Rf        | 0.49(49%)            |
+| k~d_R~    | 0.0572(u^-1^)        |
+| k~d_Rm~   | 0.612(u^-1^)         |
+| k~s_r~    | 3.22(u^-1^)          |
+| D         | 53.409(nmol/L)       |
+
+: parameters en waardes
 
 ```{r, Model, include=FALSE}
 # Parameters
@@ -125,7 +145,7 @@ parameters <- c(ks_Rm = 2.90, # fmol/g liver/h
                 kd_R = 0.0572, # 1/h
                 kd_Rm = 0.612,
                 ks_R = 3.22,
-                D = 53,409) # nmol/L
+                D = 53.409) # nmol/L
 
 # Initial state
 state <- c(Rmo = 4.74, # fmol/g liver
@@ -157,6 +177,16 @@ plot(out, main = c("Level of receptor mRNA", "Level of free receptors",
      ylab = c("fmol/g liver", "fmol/mg protein", "fmol/mg protein", "fmol/mg protein"))
 ```
 
+# Conclusie.
+
+## MPL-complexen.
+
+Na inname van MPL neemt de dichtheid van MPL-complexen scherp toe deze toename is een uur later terug te zien in de MPL-complexen in de celkern. Deze toename bereikt een piek bij uur 3 voor de dichtheid MPL-complexen, en uur 5 voor de hoeveelheid in de celkern. Hierna dalen beiden geleidelijk totdat de dichtheid stabiliseert tot minuscule afnamen per uur rond 16 fmol/mg eiwit bij uur 23, en de hoeveelheid MPL-complexen in de celkern bij 18 fmol/mg eiwit en uur 25.
+
+## Werking.
+
+De belangrijkste waarde om in de gaten te houden ten opzichte van de werking van het medicijn is: de dichtheid van de MPL-complexen. Want hiermee inhibeert het medicijn de ontstekingsreactie in de cel door het omlaag te reguleren van genen die de eiwitten voor deze reactie afschrijven.
+
 # Bijlage.
 
 ## Code.
@@ -172,7 +202,7 @@ parameters <- c(ks_Rm = 2.90, # fmol/g liver/h
                 kd_R = 0.0572, # 1/h
                 kd_Rm = 0.612,
                 ks_R = 3.22,
-                D = 53,409) # nmol/L
+                D = 53.409) # nmol/L
 
 # Initial state
 state <- c(Rmo = 4.74, # fmol/g liver
