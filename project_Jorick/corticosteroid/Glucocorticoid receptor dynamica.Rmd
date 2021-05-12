@@ -179,13 +179,25 @@ plot(out, main = c("Level of receptor mRNA", "Level of free receptors",
 
 # Conclusie.
 
+hieronder worden de resultaten uit het model besproken en een conclusie getrokken op de werking van MPL.
+
+## Receptor mRNA.
+
+Na inname van het medicijn is te zien dat na 3 uren het niveau van het receptor mRNA drastisch naar beneden gaat. Doordat de toename van MPL-complexen toeneemt, onderdrukt deze de aanmaak van nieuw mRNA. Na +/- 10 uren herstelt het receptor mRNA niveau zich deels, doordat de dichtheid van de MPL-complexen afneemt.
+
+## Vrije receptoren.
+
+Het niveau van de vrije receptoren in het cytosol daalt na inname direct en vlakt af richting de 0 na iets meer dan 20 uren. Doordat de aanwezigheid van het medicijn wordt de aanmaak van nieuwe receptoren geremd en daalt het niveau. Een deel van de MPL-complexen kunnen worden hergebruikt als vrije receptoren waardoor er niet direct een sterkte daling optreed.
+
 ## MPL-complexen.
 
-Na inname van MPL neemt de dichtheid van MPL-complexen scherp toe deze toename is een uur later terug te zien in de MPL-complexen in de celkern. Deze toename bereikt een piek bij uur 3 voor de dichtheid MPL-complexen, en uur 5 voor de hoeveelheid in de celkern. Hierna dalen beiden geleidelijk totdat de dichtheid stabiliseert tot minuscule afnamen per uur rond 16 fmol/mg eiwit bij uur 23, en de hoeveelheid MPL-complexen in de celkern bij 18 fmol/mg eiwit en uur 25.
+Na inname van MPL neemt de dichtheid van MPL-complexen scherp toe deze toename is een uur later terug te zien in de MPL-complexen in de celkern. Deze toename bereikt een piek bij uur 3 voor de dichtheid MPL-complexen, en uur 5 voor de hoeveelheid in de celkern. Hierna dalen beiden geleidelijk totdat de dichtheid stabiliseert tot minuscule afnamen per uur rond 16 fmol/mg eiwit bij uur 23, en de hoeveelheid MPL-complexen in de celkern bij 18 fmol/mg eiwit en uur 25. De eerste stijging is te verklaren door de inname van MPL, waardoor de MPL-complexen gevormd worden de afname komt omdat het aantal receptoren afneemt.
 
 ## Werking.
 
-De belangrijkste waarde om in de gaten te houden ten opzichte van de werking van het medicijn is: de dichtheid van de MPL-complexen. Want hiermee inhibeert het medicijn de ontstekingsreactie in de cel door het omlaag te reguleren van genen die de eiwitten voor deze reactie afschrijven.
+De belangrijkste waarde om in de gaten te houden ten opzichte van de werking van het medicijn is: de dichtheid van de MPL-complexen. Want hiermee inhibeert het medicijn de ontstekingsreactie in de cel door het omlaag te reguleren van genen die de eiwitten voor deze reactie afschrijven. Verder lijkt MPL effectief tot 20 uur na inname hierna lijken de meeste waarden uit het model een stabilisatie punt gevonden te hebben.
+
+\newpage
 
 # Bijlage.
 
