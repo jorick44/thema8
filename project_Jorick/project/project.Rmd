@@ -1,0 +1,65 @@
+---
+title: "Project"
+author: "Jorick Baron, Pascal Visser"
+date: "5/26/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Parameters
+parameters <- c(g = 0.742 *10^-3, # h^-1
+                b = 0, # h^-1 U^-1
+                l = 0.25, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531, #h^-1
+                vd = (1/2.4)) # h^-1
+
+# Initial state
+y <- c(    U = 1.35 * 10^5, # HSAEC/ml
+           E = 3.34 * 10^4, # HSAEC/ml
+           I = 0, # HSAEC/ml
+           V = 0) # PFU/ml
+# Model
+viral <- function(t, y, parms){
+  with(as.list(c(parms)),{
+    dU <- (g * y[1]) - (b * y[1] * y[4])
+    dE <- (b * y[1] * y[4]) - (l * y[2])
+    dI <- (l * y[2]) - (d * y[3])
+    dV <- ((p * y[3]) - (b * y[1] * y[4])) - (y[4] * vd)
+    return(list(c(dU, dE, dI, dV)))
+  })}
+# Timeframe
+times <- seq(0, 100, by = 1)
+# Run model
+viralout <- lsoda(y = y, times = times, parms = parameters, func = viral)
+# Clean up data
+viralout <- data.frame(viralout)
+row.names(viralout) <- viralout$time
+viralout <- viralout[2:5]
+viralout <- apply(viralout, 2, log10)
+viralout[is.na(viralout) | is.infinite(viralout) | viralout < 0] <- 0
+
+#plot
+par(mfrow=c(2,2))
+#1
+plot(viralout[,1], main = "Uninfected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "green")
+#2
+plot(viralout[,2], main = "Early infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "orange")
+#3
+plot(viralout[,3], main = "Infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "red")
+#4
+plot(viralout[,4], main = "Virus numbers",
+     xlab = "Time(hpi)", ylab = "log10(PFU/ml)",
+     ylim = c(0, 7), type = "l")
+```
+
