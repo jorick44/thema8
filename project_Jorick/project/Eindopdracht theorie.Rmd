@@ -1,0 +1,100 @@
+---
+title: "Eindopdracht"
+author: "Pascal Visser"
+date: "3-6-2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+# Intorductie
+
+Op het moment van schrijven zijn er geen FDA goedgekeurde therapieën voor de bestrijding van het Rift Valley Fever Virus (RVFV) beschikbaar. In een poging om een goede behandeling te vinden voor RVFV, zijn er een serie van FDA goedgekeurde geneesmiddelen gescreend om hun effect te bekijken op het RVFV. Dit artikel gaat over het onderzoek naar het effect van verschillende geneesmiddelen op RVFV, om als doel goedgekeurde medicijn te screenen voor inhibitie op het RVFV. De gescreende geneesmiddelen zijn geevalueerd op hun vermogen voor virale inhibitie en cellulaire toxiciteit. Clusters van geneesmiddelen met (deels) gelijke pathways of eiwit targets zijn gebruikt.    
+
+
+# Het Virus
+
+Het Rift Valley Fever Virus (RVFV) is een vectorziekte die veroorzaakt wordt door het riftdalkoortsvirus. Dit koorts virus is een (-)ssRNA-virus, dat bij een groot aantal diersoorten kan voorkomen. Runderen, geiten, schapen, en verschillende soorten knaagdieren zijn vatbaar voor deze ziekte. Riftdalkoorts is een zoönose en kan dus ook op mensen worden overgedragen, deze is daarom een gevaarlijke ziekte en staat hoog op de lijst van de OIE (wereldorganisatie voor diergezondheid). 
+
+Het virus heeft de eigenschappen dat het:
+
+- Meerdere maanden kan overleven bij lage tempraturen (< 6°C)
+- Kan leven tot 50°C
+- Bestand is tegen een basisch milieu, maar hier niet actief functioneert.
+- Kan langere tijd overleven in opgedroogde mest en neusuitvloeiingen. 
+
+Het virus komt vooral voor in Afrika, waar er sinds de eerste gerapporteerde uitbraak in 1931, nog 19 zouden volgen. Op het moment (juni 2021) heerst er een uitbraak in Kenya, waar van de 32 humane besmettingen al 11 mensen zijn overleden. 
+
+Besmettingen vinden vaak plaats via de vector. Dit is een mug of andere gevleugeld insect, die het virus verspreid. directe besmetting kan ook via lichaamsvloeistoffen van dier. Of bij mensen, eten van geinfecteerd vlees of rauwe melk drinken.
+
+Riftdalkoorts heeft een korte incubatie tijd van 1 - 6 dagen. De symptomen zijn erg diersoort en leeftijds afhankelijk. Bij dieren zijn de algemene symtomen:
+
+- Koorts
+- Overgeven
+- Dractige dieren arborteren
+
+Deel van de dieren sterft hier ook aan.  
+Bij mensen komen de volgende symptomen voor:
+
+- Koorts
+- Hoofdpijn
+- Spierpijn
+- Misselijkheid  
+  
+Ook kunnen er in kleine gevallen ergere symptomen voorkomen zoals:
+
+- Blindheid (gezichts verlies)
+- Hersenvliesontsteking
+- Petechiën
+- Bloedingen (in en uitwendig)
+- Lever problemen 
+
+Mensen met interne bloedingen hebben een kans op overlijden tot wel 50%.
+
+Bestrijding van het virus is lastig, omdat het vooral verspreid via muggen. Vaccinatie is een tijdelijke oplossing omdat deze maar 3 jaar bescherming bied. nadeel hiervan is dat het bij drachtige ooien leidt tot abortus. In Europa is de kans zeer klein dat er besmettingen voorkomen, vanwege het ontbreken van een geschikt leefklimaat voor de vector. 
+
+# Het experiment
+
+Voor het experiment zijn verschillende cel culturen gebruikt. Waaronder ook humane luchtweg epitheel cellen. Voor het virus zijn recombinaten gemaakt met verschillende plasmides. Alle testen van het experiment zijn *in vitro* uitgevoerd. Sommige assays waren geinfecteerd met luciferase. Ook zijn er siRNA knockdowns gemaakt of effecten te bekijken.  
+
+In totaal zijn er 420 goedkeurde geneesmiddelen getest op RVFV inhibitie. Deze geneesmiddelen zijn divers en gerelateerd aan oncologie, cardiologie, ontstekingsremmers, immuunsysteem en meer, om zo een breed scala aan medicijnen te testen. Als resultaat is er uit gekomen dat het geneesmiddel Sorafenib het beste gewenste effect laat zien in vitro. Sorafenib reduceerd RVFV replicatie in meerde celtypen en heeft geen of zeer weinig cel toxische bewerkingen. Ook beinvloed Sorafenib verschillende stadia van de RVFV levensloop. Later zijn er ook nog *in vito* experimenten uitgevoerd met Sorafenib. deze laten ook positieve resultaten zien, alhowel niet bij elke test statische significant.  
+
+# Computer model
+
+Er is een computer model van de RVFV infectie ontwikkeld met de statische software R. Virus gedrag over tijd is geschat met de package deSolve en de Isoda functie. Het doel hierbij is om een model te maken voor een natuurlijke virus infectie, en dan het model te gebruiken om de potentie van de anti-virale mechanisme van Sorafenib uit te lichten. 
+
+Alles in het model is gebaseerd op HSAECs cellen. 
+
+Het computer model is een 4 dimensionaal niet-liniair systeem. Een versimpelde versie van een bestaand model voor het influenza virus. Dit model heeft 4 variablen:
+
+- U = niet geinfecteerd
+- E = vroeg geïnfecteerde cellen die nog niet virus delen kunnen produceren
+- I = virus producerende cellen
+- V = virus 
+
+Normale cellen repliceren met een base rate *g*.  
+De infectie rate wordt aangegeven met *b*.  
+Een niet geinfecteerde cel wordt bij infectie, meteen een geinfecteerde cel. Maar, deze geinfecteerde cellen kunnen niet meteen Virus partiekelen produceren, deze vertraging wordt aangeduid met *l*.  
+Geinfecteerde cellen produceren, na de vertraging, virussen met een rate *p*, en sterven uiteindelijk met een rate *d*.  
+
+In het model ziet het er als volgt uit:
+
+dU/dt = gU−bUV    (1)
+dE/dt = bUV−lE    (2)
+dI/dt = lE−dI     (3)
+dV/dt = pI−bUV    (4)
+
+De initiele condities zijn geschat door samples te nemen van 1h geincubeerde assays wells. Voor de model parameters zijn groepen cellen gekwantificeerd op 0h en 24h. en  hierbij getest op deelsnelheid, infectiesnelheid ect.
+
+# Resultaten comuter model 
+
+Om data te verzamelen voor het computer model is de groei van RVFV *in vitro* met en zonder Sorafenib gekarakteriseerd. De cellen waren met DSMO of Sorafenib voorbehandeld en daarna geinfecteerde met RVFV. Op bepaalde intervallen zijn de cel cultrulen gewassen en de vrije virussen geteld. op deze manier konden bepaalde parameters en initele waaardes worden vast gesteld. 
+
+Het model heeft volgens het artiekel een excellente weerspiegeling van de echte lab data. Het model vangt de naturlijke infectie dynamiek goed. Hierdoor kan er ook goed gekeken worden welk deel van het medicijn welke impact zou hebben. Wat gebeurt er als de infectie rate afneemt? hoe effectief inibeerd het medicijn? allemaal vragen die aan de hand van het dynamische model beantwoord kunnen worden. 
+
+In het experiment is afgevraagd welk deel van de virus levensloop kan verstoort worden door Sorafenib. als in, als Sorafenib infectie blokkeert, dan moet in het model dit gesimuleerd worden als een lagere *b*. Het model simuleert dit goed, het aantal virussen en infecties daalt zowel in het lab als in het model met een ongeveer zelfde rate. 
+
+Al met al is het model een goede en nuttige menier om hypotheses te testen en simulaties te runnen, zonder dat er labwerk aan te pas komt. 
+
+
+
+
