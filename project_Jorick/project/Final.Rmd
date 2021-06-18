@@ -1,0 +1,414 @@
+---
+title: "Eindopdracht"
+author: "Pascal Visser & Jorick Baron"
+date: "3-6-2021"
+output:
+  pdf_document: default
+editor_options: 
+  markdown: 
+    wrap: sentence
+bibliography: references.bib
+---
+
+# Theory
+
+## Introduction
+
+At the time of writing, there are no FDA-approved therapies available to fight the Rift Valley Fever Virus (RVFV).
+In an effort to find a good treatment for RVFV, a series of FDA-approved drugs have been screened to see their effect on RVFV.
+This article is about investigating the effect of different drugs on RVFV.
+The screened drugs have been evaluated for their potential for viral inhibition and cellular toxicity.
+Clusters of drugs with (partially) similar pathways or protein targets have been used.
+
+## The virus
+
+The Rift Valley Fever Virus (RVFV) is a vector disease caused by the rift valley fever virus.
+This fever virus is a (-)ssRNA virus, which can occur in a large number of animal species, such as: Cattle, goats, sheep, and various types of rodents are susceptible to this disease.
+Rift valley fever is a zoonosis and can therefore also be transmitted to humans, making it a dangerous disease and high on the list of the OIE (World Organization for Animal Health).
+
+The virus has the properties that it:
+
+-   Can survive several months at low temperatures (\< 6°C)
+-   Can live up to 50°C
+-   Can withstand an alkaline environment, but does not function actively here.
+-   Can survive for a long time in dried manure and nasal discharge.
+
+The virus is mainly found in Africa, where 19 more outbreaks were expected to follow since the first reported outbreak in 1931.
+At the moment (June 2021) there is an outbreak in Kenya, where of the 32 human infections, 11 people have already died.
+
+Infections often take place via the vector.
+This is a mosquito or other winged insect that spreads the virus.
+Direct contamination can also be via animal body fluids.
+Or in humans cases, eating infected meat or drinking raw milk.
+
+Rift valley fever has a short incubation period of 1 to 6 days.
+The symptoms very between species and are age dependent.
+In animals, the general symptoms are:
+
+-   Fever
+-   Vomit
+-   Abort pregnant animals
+
+Some of the animals also die from this.
+The following symptoms occur in humans:
+
+-   Fever
+-   Headache
+-   Muscle strain
+-   Nausea
+
+In minor cases, worse symptoms can also occur, such as:
+
+-   Blindness ((temporary) loss of sight)
+-   Meningitis
+-   Petechiae
+-   Bleeding (internal and external)
+-   Liver problems
+
+People with internal bleeding have a mortality up to 50%.
+
+Fighting the virus is difficult, because it is mainly spread through mosquitoes.
+Vaccination is a temporary solution because it only provides protection for 3 years.
+The disadvantage of this is that it leads to abortion in pregnant livestock.
+In Europe, the chance of infections occurring is very small, due to the lack of a suitable living environment for the vector.
+But with the changing climate, better environments are created in Europe and Asia for the vector.
+Making it a possible future threat for other continents.
+
+## The experiment
+
+Different cell cultures were used for the experiment.
+Including human airway epithelial cells.
+Recombinants have been made for the virus with different plasmids.
+All tests of the experiment were performed *in vitro*.
+Some assays were infected with luciferase.
+SiRNA knockdowns have also been made for see the effect of gen knockdown.
+
+A total of 420 approved drugs were tested for RVFV inhibition.
+These drugs are diverse and related to oncology, cardiology, anti-inflammatories, immune system and more, to test a wide variety of drugs.
+As a result, the drug Sorafenib showed the best desired effect in vitro.
+Sorafenib reduces RVFV replication in multiple cell types and has no or very few cell toxic processes.
+Sorafenib also affects different stages of the RVFV life course.
+Later, *in vito* experiments were also performed with Sorafenib.
+these also show positive results, although not statistically significant in every test.
+
+## Computer model
+
+A computer model of the RVFV infection has been developed with the static software R.
+Virus behavior over time has been estimated with the package deSolve and the Isoda function.
+The aim here is to create a model for a natural virus infection, and then use the model to highlight the potential of the antiviral mechanism of Sorafenib.
+
+Everything in the model is based on HSAECs cells.
+
+The computer model is a 4-dimensional non-linear system.
+A simplified version of an existing model for the influenza virus.
+This model has 4 variables:
+
+-   U = Not infected
+-   E = Early infected cells that cannot yet produce viruses
+-   I = Virus producing cells (Infected)
+-   V = Virus
+
+Normal cells replicate at a base rate *g*.
+The infection rate is indicated with *b*.
+When infected, an uninfected cell immediately becomes an infected cell.
+However, these infected cells cannot immediately produce virus particles, this delay is indicated by *l*.
+Infected cells, after the delay, produce viruses at a rate *p*, and eventually die at a rate *d*.
+
+In the model it looks like this:
+
+dU/dt = gU-bUV (1) \newline dE/dt = bUV-lE (2) \newline dI/dt = lE-dI (3) \newline dV/dt = pI-bUV (4) \newline
+
+Initial conditions were estimated by sampling 1h intubated assay wells.
+For the model parameters, groups of cells were quantified at 0h and 24h.
+and tested for infection rate, virus production rate ect.
+
+## Computer model results
+
+To collect data for the computer model, the growth of RVFV *in vitro* with and without Sorafenib has been characterized.
+The cells were pre-treated with DSMO or Sorafenib and then infected with RVFV.
+At certain intervals, the cell cultures were washed and the free viruses were counted.
+in this way certain parameters and initial values could be established.
+
+According to the article, the model is an excellent reflection of the real lab data. The model captures the natural infection dynamics very well. This also makes it possible to see which part of the medicine would have an impact.
+What happens if the infection rate decreases? How effectively does the drug inhibit? All questions that can be answered on the basis of the dynamic model.
+
+In the experiment it was asked which part of the virus life course can be disrupted by Sorafenib.
+as in, if Sorafenib blocks infection, then in the model this should be simulated as a lower *b*.
+The model simulates this well, the number of viruses and infections decreases both in the lab and in the model at approximately the same rate.
+
+All in all, the model is a good and useful way to test hypotheses and run simulations, without the need for lab work.
+
+# Base Model
+
+Below this text the results of the base model as described in @benedict2015 are displayed.
+
+| Symbol | Value                  |
+|--------|------------------------|
+| g      | 0.742 \* 10^-3^ h^-1^  |
+| b      | 0.195 h^-1^ U^-1^      |
+| l      | $1/4$ h^-1^            |
+| d      | 0.0222 h^-1^           |
+| p      | 0.531 h^-1^            |
+| U(0)   | 1.34 \* 10^5^ HSAEC/ml |
+| E(0)   | 3.34 \* 10^4^ HSAEC/ml |
+| I(0)   | 0 HSAEC/ml             |
+| V(0)   | 0 PFU/ml               |
+
+: Table1: standard model parameters/values.
+
+```{r echo =FALSE, messages = F, warning=FALSE}
+library(deSolve)
+# Parameters
+parameters <- c(g = 0.742 *10^-3, # h^-1
+                b = 0.195, # h^-1 U^-1
+                l = 0.25, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531) # h^-1
+                
+# Initial state
+y <- c(    U = 1.35 * 10^5, # HSAEC/ml
+           E = 3.34 * 10^4, # HSAEC/ml
+           I = 0, # HSAEC/ml
+           V = 0) # PFU/ml
+# Model
+viral <- function(t, y, parms){
+  with(as.list(c(parms)),{
+    dU <- (g * y[1]) - (b * y[1] * y[4])
+    dE <- (b * y[1] * y[4]) - (l * y[2])
+    dI <- (l * y[2]) - (d * y[3])
+    dV <- ((p * y[3]) - (b * y[1] * y[4]))
+    return(list(c(dU, dE, dI, dV)))
+  })}
+# Timeframe
+times <- seq(0, 30, by = 1)
+# Run model
+viralout <- lsoda(y = y, times = times, parms = parameters, func = viral)
+# Clean up data
+viralout <- data.frame(viralout)
+row.names(viralout) <- viralout$time
+viralout[,5] <- viralout[,5] -700 # correction aplied like @benedict2015
+viralout <- viralout[2:5]
+viralout <- apply(viralout, 2, log10)
+viralout[is.na(viralout) | is.infinite(viralout) | viralout < 0] <- 0
+#plot
+par(mfrow=c(2,2))
+#1
+plot(viralout[,1], main = "Uninfected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "green")
+#2
+plot(viralout[,2], main = "Early infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "orange")
+#3
+plot(viralout[,3], main = "Infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "red")
+#4
+plot(viralout[,4], main = "Free Virus numbers",
+     xlab = "Time(hpi)", ylab = "log10(PFU/ml)",
+     ylim = c(0, 7), type = "l")
+```
+
+[*Figure 1: results of the standard model.*]{.smallcaps}
+
+## Different delays
+
+```{r echo =FALSE, messages = F, warning=FALSE}
+library(deSolve)
+# Parameters
+parameters <- c(g = 0.742 *10^-3, # h^-1
+                b = 0.195, # h^-1 U^-1
+                l = 0.25, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531) # h^-1
+parameters1 <- c(g = 0.742 *10^-3, # h^-1
+                b = 0.195, # h^-1 U^-1
+                l = 0.25*5, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531) # h^-1
+parameters2 <- c(g = 0.742 *10^-3, # h^-1
+                b = 0.195, # h^-1 U^-1
+                l = 0.25/5, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531) # h^-1
+                
+# Initial state
+y <- c(    U = 1.35 * 10^5, # HSAEC/ml
+           E = 3.34 * 10^4, # HSAEC/ml
+           I = 0, # HSAEC/ml
+           V = 0) # PFU/ml
+# Model
+viral <- function(t, y, parms){
+  with(as.list(c(parms)),{
+    dU <- (g * y[1]) - (b * y[1] * y[4])
+    dE <- (b * y[1] * y[4]) - (l * y[2])
+    dI <- (l * y[2]) - (d * y[3])
+    dV <- (p * y[3]) - (b * y[1] * y[4])
+    return(list(c(dU, dE, dI, dV)))
+  })}
+# Timeframe
+times <- seq(0, 100, by = 1)
+# Run model
+viralout <- lsoda(y = y, times = times, parms = parameters, func = viral)
+viralout1 <- lsoda(y = y, times = times, parms = parameters1, func = viral)
+viralout2 <- lsoda(y = y, times = times, parms = parameters2, func = viral)
+# Clean up data
+viralout <- data.frame(viralout)
+row.names(viralout) <- viralout$time
+viralout[,5] <- viralout[,5] -700 # correction aplied like @benedict2015
+viralout <- viralout[2:5]
+viralout <- apply(viralout, 2, log10)
+viralout[is.na(viralout) | is.infinite(viralout) | viralout < 0] <- 0
+# Clean up data
+viralout1 <- data.frame(viralout1)
+row.names(viralout1) <- viralout1$time
+viralout1[,5] <- viralout1[,5] -700 # correction aplied like @benedict2015
+viralout1 <- viralout1[2:5]
+viralout1 <- apply(viralout1, 2, log10)
+viralout1[is.na(viralout1) | is.infinite(viralout1) | viralout1 < 0] <- 0
+# Clean up data
+viralout2 <- data.frame(viralout2)
+row.names(viralout2) <- viralout2$time
+viralout2[,5] <- viralout2[,5] -700 # correction aplied like @benedict2015
+viralout2 <- viralout2[2:5]
+viralout2 <- apply(viralout2, 2, log10)
+viralout2[is.na(viralout2) | is.infinite(viralout2) | viralout2 < 0] <- 0
+#plot
+plot(viralout[,2], main = "Early infected cells \n Effect of changes in latency value ",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "orange", lwd = 2)
+lines(viralout1[,2], col = 'red', lwd = 2)
+lines(viralout2[,2], col = 'seagreen', lwd = 2)
+par(xpd=TRUE)
+legend(4, -1, c("Normal", "5 fold increase", "5 fold decrease"), col = c("orange", "Red", "Green") ,
+       lwd=3, cex=1, horiz = T, xpd = T, seg.len = 2, bty = 'n')  
+```
+
+[*Figure 2: results of the standard model with altered delays.*]{.smallcaps}
+
+The chart above shows the early infected cells, these infected cells cannot immediately produce virus particles.
+The delay on this was called *l*.
+In the graph, the values for the delay have been adjusted by a 5 fold increase and decrease.
+Where a decrease causes a longer delay and an increase of the delay value provides faster transition to infected state (All other parameters/values where unaltered as seen in table1).
+
+With an increased delay value, all the early infected cells changed within 16 hours to the infected state.
+While with the normal rate this takes at least 45 hours.
+
+## Updated Model
+
+Here is a model of the virus's interaction with Human Small Airway Epithelial Cells (HSAEC).
+Based upon a modified version of the base model @benedict2015 where we added a viral decay parameter to simulate it closer to reality based upon Handel's influenza model @Handel2010 .
+Used here are the standard situation (no drugs) parameters and values, displayed in this table.
+
++--------+-------------------------------------------------------------------------------------+
+| Symbol | Value                                                                               |
++========+=====================================================================================+
+| g      | 0.742 \* 10^-3^ h^-1^                                                               |
++--------+-------------------------------------------------------------------------------------+
+| b      | 0.195 h^-1^ U^-1^                                                                   |
++--------+-------------------------------------------------------------------------------------+
+| l      | $1/4$ h^-1^                                                                         |
++--------+-------------------------------------------------------------------------------------+
+| d      | 0.0222 h^-1^                                                                        |
++--------+-------------------------------------------------------------------------------------+
+| p      | 0.531 h^-1^                                                                         |
++--------+-------------------------------------------------------------------------------------+
+| vd     | 2.4 h^-1^ (10/day) (under assumption that all viruses decay similarly @Handel2010 ) |
++--------+-------------------------------------------------------------------------------------+
+| U(0)   | 1.34 \* 10^5^ HSAEC/ml                                                              |
++--------+-------------------------------------------------------------------------------------+
+| E(0)   | 3.34 \* 10^4^ HSAEC/ml                                                              |
++--------+-------------------------------------------------------------------------------------+
+| I(0)   | 0 HSAEC/ml                                                                          |
++--------+-------------------------------------------------------------------------------------+
+| V(0)   | 0 PFU/ml                                                                            |
++--------+-------------------------------------------------------------------------------------+
+| D(0)   | 0 HSAEC/ml                                                                          |
++--------+-------------------------------------------------------------------------------------+
+
+: Table2: standard parameters and values updated model.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Parameters
+parameters <- c(g = 0.742 * 10^-3, # h^-1
+                b = 0.195, # h^-1 U^-1
+                l = 1/4, # h^-1
+                d = 0.0222, # h^-1
+                p = 0.531, # h^-1
+                vd = 2.4
+                ) 
+# Initial state
+state <- c(U = 1.34 * 10^5, # HSAEC/ml
+           E = 3.34 * 10^4, # HSAEC/ml
+           I = 0, # HSAEC/ml
+           V = 0, # PFU/ml
+           D = 0
+           ) 
+# Model
+viral <- function(t, y, parms){
+  with(as.list(c(parms)),{
+    dU <- g * y[5] - b * y[1] * y[4]
+    dE <- b * y[1] * y[4] - l * y[2]
+    dI <- l * y[2] - d * y[3]
+    dV <- p * y[3] - b * y[1] * y[4] - vd *y[4]
+    dD <- d * y[3]  - g * y[5] 
+    return(list(c(dU, dE, dI, dV, dD)))
+  })}
+# Timeframe
+times <- seq(0, 30, by = 1)
+# Run model
+viralout <- lsoda(y = state,
+                  times = times,
+                  parms = parameters,
+                  func = viral)
+# Clean up data
+viralout <- data.frame(viralout)
+row.names(viralout) <- viralout$time
+viralout[,5] <- viralout[,5] -700 # correction aplied like @benedict2015
+viralout <- viralout[2:6]
+viralout <- apply(viralout, 2, log10)
+viralout[is.na(viralout) | is.infinite(viralout) | viralout < 0] <- 0
+#plot
+par(mfrow=c(2,3))
+#1
+plot(viralout[,1], main = "Uninfected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "green")
+#2
+plot(viralout[,2], main = "Early infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "orange")
+#3
+plot(viralout[,3], main = "Infected cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAEC/ml)",
+     ylim = c(0, 7), type = "l", col = "red")
+#4
+plot(viralout[,4], main = "Virus numbers",
+     xlab = "Time(hpi)", ylab = "log10(PFU/ml)",
+     ylim = c(0, 7), type = "l")
+#5 
+plot(viralout[,5], main = "Dead Cells",
+     xlab = "Time(hpi)", ylab = "log10(HSAE/ml)",
+     ylim = c(0, 7), type = "l")
+```
+
+[*Figure 3: results of updated model using standard parameters/values.*]{.smallcaps}
+
+The figure above describes the results from the updated model.
+At 9-10 hours post infection a clear tipping point has been reached, where the virus numbers have reached the top and the uninfected cells are fully converted.
+Due to the lack of uninfected cells the early infected cells are slowly decreasing.
+
+# Discussion
+
+The aim of this project was to recreate a experiment with a differential model, so that we could used the model and parameters to visualise the experiment in plots and graphs. We have used a paper about the drug testing, for the effectiveness of virus inhibition. 
+
+The base model as well as the updated model has been proven to be a excellent representation of the lab data. By using the computer models instead of lab experiments. certain question can be easy answered by adjusting the parameters, or in case of the updated model, add a whole new parameter. But the model can't and will never be 100% accurate. yes, simple question can be answered by the model. But for complex and environment sensitive biological questions, is the lab still the best option. 
+
+if we discuss our own used data, starting with the model. The model is a derivative from the influenza model, a simplified version. but by using the correct formulas it functions very well. The parameters are extracted and calculated from the lab data. In the paper is mentioned how the data is obtained, this is documented well. If we take a look at our own models, they look good. all the necessary information is in it. and it is well documented. 
+
+For future use or more time for the project, we have could included more biological question about the virus life span and/or the used drug. The base is there to create a model, but with more time we could have created more insights on the subject. 
+
+
+
+# References
